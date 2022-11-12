@@ -22,19 +22,26 @@ const Logo = styled.img`
 `
 const MainHeading = styled.h1`
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 400;
     color: #fff;
     margin-bottom:.75rem;
+    span{
+        font-weight: 700;
+    }
 `
 const SubHeading = styled.p`
-font-size: 1.75rem;
+font-size: 1.5rem;
 color: #fff;
-margin-bottom:.75rem;
+opacity: 0.7;
+margin-bottom:1.5rem;
 `
 const AddPlayGround = styled.button`
-padding: .75rem 1.75rem;
-font-size: 1.25rem;
+padding: .25rem 1.5rem;
+font-size: 1rem;
 border-radius: 30px;
+display: flex;
+align-items: center;
+gap:0.25rem;
 
 span{
     font-size: 1.5rem;
@@ -52,9 +59,9 @@ function LeftComponent() {
         <ContentContainer>
             {/* <img src="/logo.png" alt="" />  this way used when files/imgs are in public file */}
             <Logo src={logo} alt="" /> 
-            <MainHeading>Code Deck</MainHeading> 
-            <SubHeading>Code. Compile. Develope.</SubHeading>
-            <AddPlayGround> <span>+</span> Create New PlayGround</AddPlayGround>
+            <MainHeading><span>Code</span> Deck</MainHeading> 
+            <SubHeading>Code. Compile. Debug.</SubHeading>
+            <AddPlayGround> <span>+</span> Create New Playground</AddPlayGround>
         </ContentContainer>
     </StyleLeftComponent>
   )
