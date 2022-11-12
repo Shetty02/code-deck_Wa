@@ -1,7 +1,7 @@
 import React from 'react'
 import styled  from 'styled-components'
 import LeftComponent from './LeftComponent'
-// import RightComponent from './RightComponent'
+import RightComponent from './RightComponent'
 
 
 const StyledHome = styled.div`
@@ -14,7 +14,7 @@ function Home() {
     <StyledHome>
       {/* <h1>Home</h1> */}
       <LeftComponent/>
-      {/* <RightComponent/> */}
+      <RightComponent/>
     </StyledHome>
   )
 }
