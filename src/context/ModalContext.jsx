@@ -3,8 +3,8 @@ import { createContext, useState } from "react";
 export const ModalContext = createContext();
 
 
- function ModalProvider({children}){
-    const [isOpenModal,setIsOpenModal] = useState(true);
+export default function ModalProvider({children}){
+    const [isOpenModal,setIsOpenModal] = useState(false);
     const[modalType, setModalType] = useState(null);
     const setModal = (isOpenModal, type) =>{
         setIsOpenModal(isOpenModal);
@@ -18,4 +18,4 @@ export const ModalContext = createContext();
     )
 }
 
-export default ModalProvider;
+// export default ModalProvider;
