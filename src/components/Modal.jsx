@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {NewFolder, NewPlayground, NewFolderandPlayground, EditCardTitle, EditFolderTitle } from './ModalTypes'
+import { ModalContext } from '../context/ModalContext'
 
 const ModalContainer = styled.div`
         position:fixed;
@@ -40,15 +41,16 @@ export const Heading = styled.h3`
     }
 `
 function Modal() {
-  const type = 5 ;
+  const {modalType} = useContext(ModalContext)
+  // const type = 1 ;
   return (
     <ModalContainer>
         <ModalContent>
-          {type === 1 && <NewFolder/>}
-          {type === 2 &&  <NewPlayground/>}
-          {type === 3 && <NewFolderandPlayground/>}
-          {type === 4 && <EditCardTitle/>}
-          {type === 5 && <EditFolderTitle/>}
+          {modalType === 1 && <NewFolder />}
+          {modalType === 2 &&  <NewPlayground/>}
+          {modalType === 3 && <NewFolderandPlayground />}
+          {modalType === 4 && <EditCardTitle/>}
+          {modalType === 5 && <EditFolderTitle/>}
          
           
         </ModalContent>

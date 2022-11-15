@@ -1,8 +1,8 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Header,Heading} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
-
+import { ModalContext } from '../../context/ModalContext'
 
 const InputTag = styled.div`
       display: flex;
@@ -23,11 +23,12 @@ const ButtonStyling = styled.button`
     font-size: .8rem;
 `
 function EditCardTitle() {
+  const {setIsOpenModal} = useContext(ModalContext)
   return (
   <>
     <Header>
       <Heading>Edit Card Title</Heading>
-      <IoCloseSharp />
+      <IoCloseSharp onClick={()=>setIsOpenModal(false)} />
     </Header>
     <InputTag>
         <InputTagStyling type="text"/>

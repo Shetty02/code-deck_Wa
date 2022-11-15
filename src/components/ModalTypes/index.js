@@ -5,4 +5,4 @@ import EditCardTitle from './EditCardTitle';
 import EditFolderTitle from './EditFolderTitle';
 
 
-export  {NewFolder, NewPlayground, NewFolderandPlayground ,EditCardTitle, EditFolderTitle};
+export  { NewFolder, NewPlayground, NewFolderandPlayground ,EditCardTitle, EditFolderTitle };

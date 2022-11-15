@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import styled from 'styled-components'
 import logo from '../../assests/logo.png'
+import {ModalContext} from '../../context/ModalContext'
 
 const StyleLeftComponent = styled.div`
     position: fixed;
@@ -54,6 +55,7 @@ span{
 `
 
 function LeftComponent() {
+    const {setModal} = useContext(ModalContext);
   return (
     <StyleLeftComponent>
         <ContentContainer>
@@ -61,7 +63,7 @@ function LeftComponent() {
             <Logo src={logo} alt="" /> 
             <MainHeading><span>Code</span> Deck</MainHeading> 
             <SubHeading>Code. Compile. Debug.</SubHeading>
-            <AddPlayGround> <span>+</span> Create New Playground</AddPlayGround>
+            <AddPlayGround onClick={()=>setModal(true, 3)}> <span>+</span> Create New Playground</AddPlayGround>
         </ContentContainer>
     </StyleLeftComponent>
   )

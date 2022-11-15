@@ -1,7 +1,8 @@
-import React from 'react'
+import React ,{useContext} from 'react'
 import {Header,Heading} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
+import { ModalContext } from '../../context/ModalContext'
 
 const InputTag = styled.div`
       display: flex;
@@ -15,8 +16,8 @@ const InputTagStyling = styled.input`
     
 `
 const SelectTag = styled.select`
-        width: 90px;
-    height: 32px;
+     width: 120px;
+    height: 35px;
     margin: 10px;
 `
 const ButtonStyling = styled.button`
@@ -27,18 +28,27 @@ const ButtonStyling = styled.button`
     height: 25px;
     font-size: .8rem;
 `
+const SpanTag = styled.span`
+    display: grid;
+    grid-template-columns: .8fr .6fr;
+    justify-content: center;
+    align-items: center;
+`
 
 function NewFolderandPlayground() {
+  const {setIsOpenModal} = useContext(ModalContext)
   return ( 
   <>
    <Header style={{gap:"15px"}}>
       <Heading>Create New Folder and Playground</Heading>
-      <IoCloseSharp/>
+      <IoCloseSharp onClick={()=>setIsOpenModal(false)} style = {{cursor:"pointer"}}/>
     </Header>
     <InputTag>
-              <span>Enter Folder Name<InputTagStyling type="text" /></span>
-              <span>Enter Card Name <InputTagStyling type="text" /></span>
+              <SpanTag>Enter Folder Name<InputTagStyling type="text" /></SpanTag>
+              <SpanTag>Enter Card Name <InputTagStyling type="text" /></SpanTag>
     </InputTag>
+    <SpanTag>
+
              <SelectTag >
             <option value="C++">C++</option>
             <option value="C">C</option>
@@ -46,6 +56,7 @@ function NewFolderandPlayground() {
             <option value="Phyton">Phyton</option>
            </SelectTag>
               <ButtonStyling>Create Playground</ButtonStyling>
+    </SpanTag>
     </>
   )
 }
