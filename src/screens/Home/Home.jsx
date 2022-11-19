@@ -20,7 +20,7 @@ function Home() {
       {/* <h1>Home</h1> */}
       <LeftComponent />
       <RightComponent />
-      {isOpenModal && <Modal/>}
+      {isOpenModal.show && <Modal/>}
     </StyledHome>
   )
 }

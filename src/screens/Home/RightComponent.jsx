@@ -4,6 +4,7 @@ import {IoTrashOutline} from 'react-icons/io5'
 import {BiEditAlt} from 'react-icons/bi'
 import logo from '../../assests/logo-small.png'
 import { ModalContext } from '../../context/ModalContext'
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 const StyleRightComponent = styled.div`
     position: absolute;
     top: 0;
@@ -82,46 +83,77 @@ const CardContainer = styled.div`
 `
 
 function RightComponent() {
-  const {setModal}  = useContext(ModalContext);
+  const {openModal}  = useContext(ModalContext);
+  const {folders,deleteFolder,deletCards} = useContext(PlaygroundContext);
   return (
     <StyleRightComponent>
       <Header>
         <Heading>
           My <span>PlayGround</span>
         </Heading>
-        <AddFolder onClick={()=>setModal(true, 1)}>
+        <AddFolder onClick={()=>openModal({
+            show:true,
+            modalType:1,
+            identifiers:{
+                folderId:folders.id,
+                cardId:"",
+            }
+    })}>
           <span>+</span> New Folder
         </AddFolder>
       </Header>
       <hr />
 
         {
-          Array.from({length:4}).map(()=>(
-            <FolderCard>
+         folders.map((folder,index)=>(
+            <FolderCard key={folder.id}>
         <Header>
-          <Heading size="small">Folder Name</Heading>
+          <Heading size="small">{folder.name}</Heading>
           <FolderIcon>
-            <IoTrashOutline />
-            <BiEditAlt onClick={()=> setModal(true, 5)}/>
-            <AddFolder onClick={()=>setModal(true, 2)}>
+            <IoTrashOutline onClick={()=> deleteFolder(folder.id)}/>
+            {/* For deleting the folder */}
+            <BiEditAlt onClick={()=> openModal({
+            show:true,
+            modalType:5,
+            identifiers:{
+                folderId:folder.id,
+                cardId:"",
+            }
+    })}/>
+            <AddFolder onClick={()=>openModal({
+            show:true,
+            modalType:2,
+            identifiers:{
+                folderId:folder.id,
+                cardId:"",
+            }
+    })}>
               <span>+</span> New PlayGround
             </AddFolder>
           </FolderIcon>
         </Header>
             <PlayGroundCards>
               {
-                Array.from({length:4}).map(()=>(
-            <Card>
+                folder['playgrounds'].map((playground)=>(
+            <Card key={playground.id}>
               <CardContainer>
                 <Logo src={logo} alt="" />
                 <CardContent>
-                  <p>PlayGround Name</p>
-                  <p>Language: C++</p>
+                  <p>{playground.name}</p>
+                  <p>{playground.language}</p>
                 </CardContent>
               </CardContainer>
                 <FolderIcon>
-                  <IoTrashOutline />
-                  <BiEditAlt onClick={()=> setModal(true, 4)}/>
+                  <IoTrashOutline onClick={()=>deletCards(folder.id,playground.id)}/> 
+                  {/* For deleting the card */}
+                  <BiEditAlt onClick={()=> openModal({
+            show:true,
+            modalType:4,
+            identifiers:{
+                folderId:folder.id,
+                cardId:playground.id,
+            }
+    })}/>
                 </FolderIcon>
             </Card>
                 ))
@@ -134,7 +166,7 @@ function RightComponent() {
 
       
     </StyleRightComponent>
-  );
+      );
 }
 
 export default RightComponent

@@ -36,12 +36,12 @@ const SpanTag = styled.span`
 `
 
 function NewFolderandPlayground() {
-  const {setIsOpenModal} = useContext(ModalContext)
+  const {closeModal} = useContext(ModalContext)
   return ( 
   <>
    <Header style={{gap:"15px"}}>
       <Heading>Create New Folder and Playground</Heading>
-      <IoCloseSharp onClick={()=>setIsOpenModal(false)} style = {{cursor:"pointer"}}/>
+      <IoCloseSharp onClick={()=>closeModal()} style = {{cursor:"pointer"}}/>
     </Header>
     <InputTag>
               <SpanTag>Enter Folder Name<InputTagStyling type="text" /></SpanTag>

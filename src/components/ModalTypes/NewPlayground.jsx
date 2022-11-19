@@ -29,12 +29,12 @@ const ButtonStyling = styled.button`
     font-size: .8rem;
 `
 function NewPlayground() {
-  const {setIsOpenModal} = useContext(ModalContext);
+  const {closeModal} = useContext(ModalContext);
   return (
     <>
      <Header>
       <Heading>Create New Playground</Heading>
-      <IoCloseSharp onClick={()=>setIsOpenModal(false)}/>
+      <IoCloseSharp onClick={()=>closeModal()}/>
     </Header>
 
     <InputTag>

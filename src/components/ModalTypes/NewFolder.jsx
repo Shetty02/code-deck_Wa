@@ -23,12 +23,12 @@ const ButtonStyling = styled.button`
     font-size: .8rem;
 `
 function NewFolder() {
-  const {setIsOpenModal} = useContext(ModalContext);
+  const {closeModal} = useContext(ModalContext);
   return (
     <>
     <Header>
       <Heading>Create New Folder</Heading>
-      <IoCloseSharp onClick={()=>setIsOpenModal(false)}/>
+      <IoCloseSharp onClick={()=>closeModal()}/>
     </Header>
     <InputTag>
         <InputTagStyling type="text"/>

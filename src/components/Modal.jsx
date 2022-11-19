@@ -41,7 +41,8 @@ export const Heading = styled.h3`
     }
 `
 function Modal() {
-  const {modalType} = useContext(ModalContext)
+  const {isOpenModal} = useContext(ModalContext);
+  const {modalType} = isOpenModal
   // const type = 1 ;
   return (
     <ModalContainer>

@@ -55,7 +55,7 @@ span{
 `
 
 function LeftComponent() {
-    const {setModal} = useContext(ModalContext);
+    const {openModal} = useContext(ModalContext);
   return (
     <StyleLeftComponent>
         <ContentContainer>
@@ -63,7 +63,14 @@ function LeftComponent() {
             <Logo src={logo} alt="" /> 
             <MainHeading><span>Code</span> Deck</MainHeading> 
             <SubHeading>Code. Compile. Debug.</SubHeading>
-            <AddPlayGround onClick={()=>setModal(true, 3)}> <span>+</span> Create New Playground</AddPlayGround>
+            <AddPlayGround onClick={()=>openModal({
+            show:true,
+            modalType:3,
+            identifiers:{
+                folderId:"",
+                cardId:"",
+            }
+    })}> <span>+</span> Create New Playground</AddPlayGround>
         </ContentContainer>
     </StyleLeftComponent>
   )

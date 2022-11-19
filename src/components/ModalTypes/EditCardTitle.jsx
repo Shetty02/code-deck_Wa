@@ -23,12 +23,12 @@ const ButtonStyling = styled.button`
     font-size: .8rem;
 `
 function EditCardTitle() {
-  const {setIsOpenModal} = useContext(ModalContext)
+  const {closeModal} = useContext(ModalContext)
   return (
   <>
     <Header>
       <Heading>Edit Card Title</Heading>
-      <IoCloseSharp onClick={()=>setIsOpenModal(false)} />
+      <IoCloseSharp onClick={()=>closeModal()} />
     </Header>
     <InputTag>
         <InputTagStyling type="text"/>
