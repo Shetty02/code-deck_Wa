@@ -1,8 +1,9 @@
-import React,{useContext} from 'react'
+import React,{useContext, useState} from 'react'
 import {CloseButton, Header} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
 import { ModalContext } from '../../context/ModalContext'
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 
 const InputTag = styled.div`
       display: flex;
@@ -24,6 +25,9 @@ const ButtonStyling = styled.button`
 `
 function NewFolder() {
   const {closeModal} = useContext(ModalContext);
+  const {addFolder} = useContext(PlaygroundContext);
+
+  const[folderTitle,setFolderTitle] = useState("");
   return (
     <>
     <Header>
@@ -33,8 +37,14 @@ function NewFolder() {
       </CloseButton>
     </Header>
     <InputTag>
-        <InputTagStyling type="text"/>
-        <ButtonStyling>Create Folder</ButtonStyling>
+        <InputTagStyling type="text" onChange={(e)=>setFolderTitle(e.target.value)}/>
+        <ButtonStyling
+        onClick={()=>{
+          addFolder(folderTitle);
+          closeModal();
+        }}
+        >
+          Create Folder</ButtonStyling>
     </InputTag>
     </>
   )

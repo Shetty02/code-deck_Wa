@@ -5,6 +5,7 @@ import {BiEditAlt} from 'react-icons/bi'
 import logo from '../../assests/logo-small.png'
 import { ModalContext } from '../../context/ModalContext'
 import { PlaygroundContext } from '../../context/PlaygroundContext'
+import { useNavigate } from 'react-router-dom'
 const StyleRightComponent = styled.div`
     position: absolute;
     top: 0;
@@ -83,6 +84,7 @@ const CardContainer = styled.div`
 `
 
 function RightComponent() {
+  const navigate = useNavigate(); 
   const {openModal}  = useContext(ModalContext);
   const {folders,deleteFolder,deletCards} = useContext(PlaygroundContext);
   return (
@@ -135,7 +137,11 @@ function RightComponent() {
             <PlayGroundCards>
               {
               Object.entries(folder['playgrounds']).map(([playgroundId,playground])=>(
-            <Card key={playgroundId}>
+            <Card key={playgroundId}
+            onClick={()=>{
+              navigate(`/playground/${folderId}/${playgroundId}`)
+            }}
+            >
               <CardContainer>
                 <Logo src={logo} alt="" />
                 <CardContent>
@@ -143,7 +149,12 @@ function RightComponent() {
                   <p>{playground.language}</p>
                 </CardContent>
               </CardContainer>
-                <FolderIcon>
+                <FolderIcon
+                //this will stop propagation of click from child to parent
+                onClick={(e)=>{
+                  e.stopPropagation();
+                }}
+                >
                   <IoTrashOutline onClick={()=>deletCards(folderId,playgroundId)}/> 
                   {/* For deleting the card */}
                   <BiEditAlt onClick={()=> openModal({

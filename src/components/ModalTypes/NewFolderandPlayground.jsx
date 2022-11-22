@@ -4,7 +4,7 @@ import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
 import Select from 'react-select'
 import { ModalContext } from '../../context/ModalContext'
-
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 
 const InputWithSelect = styled.div `
         display: grid;
@@ -35,9 +35,12 @@ function NewFolderandPlayground() {
     {value:"Javascript", label:"Javascript"},
   ];
 
+  const {closeModal} = useContext(ModalContext);
+  const {addCardAndFolder} = useContext(PlaygroundContext);
+  
   const [language, setLanguage] = useState(languageOptions[0]);
-
-  const {closeModal} = useContext(ModalContext)
+  const[folderTitle,setFolderTitle] = useState("");
+  const[cardTitle,setCardTitle] = useState("");
 
   const handleLanguageChange = (selectLanguage)=>{
         setLanguage(selectLanguage);
@@ -52,15 +55,23 @@ function NewFolderandPlayground() {
     </Header>
     <InputWithSelect>
               <label>Enter Folder Name</label>
-              <input type="text" />
+              <input type="text" onChange={(e)=>setFolderTitle(e.target.value) } />
               <label>Enter Card Name</label>
-              <input type="text" />
+              <input
+              type="text" 
+              onChange={(e)=>setCardTitle(e.target.value)} 
+              />
              <Select 
              value={language}
              options={languageOptions}
              onChange={handleLanguageChange}
              />
-              <button>Create Playground</button>
+              <button
+              onClick={()=>{
+                addCardAndFolder(folderTitle,cardTitle,language.label);
+                closeModal();
+              }}
+              >Create Playground</button>
     </InputWithSelect>
     </>
   )

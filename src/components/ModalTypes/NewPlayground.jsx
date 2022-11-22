@@ -4,6 +4,7 @@ import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
 import Select from 'react-select'
 import { ModalContext } from '../../context/ModalContext'
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 
 // const SelectTag = styled.select`
 //         width: 90px;
@@ -45,7 +46,11 @@ function NewPlayground() {
   const handleLanguageChange = (selectedOption)=>{
     setLanguage(selectedOption);
   }
-  const {closeModal} = useContext(ModalContext);
+  const {closeModal,isOpenModal} = useContext(ModalContext);
+  const {folderId} = isOpenModal.identifiers;
+  const {addCard} = useContext(PlaygroundContext);
+
+  const[cardTitle,setCardTitle] = useState("");
   return (
     <>
      <Header>
@@ -56,13 +61,18 @@ function NewPlayground() {
     </Header>
 
     <InputWithSelect>
-           <input type="text"/>
+           <input type="text" onChange={(e)=>setCardTitle(e.target.value)}/>
            <Select
            options={languageOptions}
            value = {language}
            onChange = {handleLanguageChange}
            />
-           <button>Create Folder</button>
+           <button
+           onClick={()=>{         
+            addCard(folderId,cardTitle,language.label)
+            closeModal()
+           }}
+           >Create Folder</button>
     </InputWithSelect>
 
            {/* <InputTag>
