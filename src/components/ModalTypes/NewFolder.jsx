@@ -1,5 +1,5 @@
 import React,{useContext} from 'react'
-import {Header,Heading} from '../Modal'
+import {CloseButton, Header} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
 import { ModalContext } from '../../context/ModalContext'
@@ -27,8 +27,10 @@ function NewFolder() {
   return (
     <>
     <Header>
-      <Heading>Create New Folder</Heading>
-      <IoCloseSharp onClick={()=>closeModal()}/>
+      <h2>Create New Folder</h2>
+      <CloseButton onClick={()=>closeModal()}>
+      <IoCloseSharp/>
+      </CloseButton>
     </Header>
     <InputTag>
         <InputTagStyling type="text"/>

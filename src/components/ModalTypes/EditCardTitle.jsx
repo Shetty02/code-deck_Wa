@@ -1,39 +1,34 @@
-import React,{useContext} from 'react'
-import {Header,Heading} from '../Modal'
+import React,{useContext, useState} from 'react'
+import {Header,CloseButton, Input} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
-import styled from 'styled-components'
 import { ModalContext } from '../../context/ModalContext'
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 
-const InputTag = styled.div`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-`
-const InputTagStyling = styled.input`
-    margin: 5px;
-    width: 250px;
-    height: 25px;
-`
-const ButtonStyling = styled.button`
-       background-color: black;
-    color: white;
-    margin: 10px;
-    width: 125px;
-    height: 25px;
-    font-size: .8rem;
-`
+
 function EditCardTitle() {
-  const {closeModal} = useContext(ModalContext)
+  const {closeModal,isOpenModal} = useContext(ModalContext);
+  const {editPlaygroundtitle,folders} = useContext(PlaygroundContext);  
+
+  const {folderId, cardId} = isOpenModal.identifiers;
+
+  const [cardTitle,setCardTitle] = useState(folders[folderId].playgrounds[cardId].title); 
+  // console.log(cardTitle)
+
   return (
   <>
     <Header>
-      <Heading>Edit Card Title</Heading>
-      <IoCloseSharp onClick={()=>closeModal()} />
+      <h2>Edit Card Title</h2>
+      <CloseButton onClick={()=>closeModal()}>
+      <IoCloseSharp/>
+      </CloseButton>
     </Header>
-    <InputTag>
-        <InputTagStyling type="text"/>
-        <ButtonStyling>Update Title</ButtonStyling>
-    </InputTag>
+    <Input>
+        <input type="text" onChange={(e)=>setCardTitle(e.target.value)}/>
+        <button onClick={()=>{
+          editPlaygroundtitle(folderId,cardId,cardTitle);
+          closeModal();
+        }}>Update Title</button>
+    </Input>
     </>
   )
 }

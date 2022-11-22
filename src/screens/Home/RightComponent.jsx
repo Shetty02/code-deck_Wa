@@ -102,21 +102,21 @@ function RightComponent() {
           <span>+</span> New Folder
         </AddFolder>
       </Header>
-      <hr />
+      <hr /> 
 
         {
-         folders.map((folder,index)=>(
-            <FolderCard key={folder.id}>
+         Object.entries(folders).map(([folderId,folder])=>(
+            <FolderCard key={folderId}>
         <Header>
-          <Heading size="small">{folder.name}</Heading>
+          <Heading size="small">{folder.title}</Heading>
           <FolderIcon>
-            <IoTrashOutline onClick={()=> deleteFolder(folder.id)}/>
+            <IoTrashOutline onClick={()=> deleteFolder(folderId)}/>
             {/* For deleting the folder */}
             <BiEditAlt onClick={()=> openModal({
             show:true,
             modalType:5,
             identifiers:{
-                folderId:folder.id,
+                folderId:folderId,
                 cardId:"",
             }
     })}/>
@@ -124,7 +124,7 @@ function RightComponent() {
             show:true,
             modalType:2,
             identifiers:{
-                folderId:folder.id,
+                folderId:folderId,
                 cardId:"",
             }
     })}>
@@ -134,24 +134,24 @@ function RightComponent() {
         </Header>
             <PlayGroundCards>
               {
-                folder['playgrounds'].map((playground)=>(
-            <Card key={playground.id}>
+              Object.entries(folder['playgrounds']).map(([playgroundId,playground])=>(
+            <Card key={playgroundId}>
               <CardContainer>
                 <Logo src={logo} alt="" />
                 <CardContent>
-                  <p>{playground.name}</p>
+                  <p>{playground.title}</p>
                   <p>{playground.language}</p>
                 </CardContent>
               </CardContainer>
                 <FolderIcon>
-                  <IoTrashOutline onClick={()=>deletCards(folder.id,playground.id)}/> 
+                  <IoTrashOutline onClick={()=>deletCards(folderId,playgroundId)}/> 
                   {/* For deleting the card */}
                   <BiEditAlt onClick={()=> openModal({
             show:true,
             modalType:4,
             identifiers:{
-                folderId:folder.id,
-                cardId:playground.id,
+                folderId:folderId,
+                cardId:playgroundId,
             }
     })}/>
                 </FolderIcon>
@@ -159,12 +159,9 @@ function RightComponent() {
                 ))
               }
           </PlayGroundCards>
-        
       </FolderCard>
           ))
-        }
-
-      
+        }     
     </StyleRightComponent>
       );
 }

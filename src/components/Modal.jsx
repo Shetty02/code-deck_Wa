@@ -40,6 +40,33 @@ export const Heading = styled.h3`
       font-weight: 700;
     }
 `
+export const CloseButton = styled.button`
+        background: transparent;
+        font-size: 2rem;
+        cursor: pointer;
+        border: 0;
+`
+export const Input = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      gap: 2rem;
+      padding-bottom: 0;
+
+
+      input{
+        flex-grow: 1;
+        height: 2rem;
+      }
+
+      button{
+        background: #241f21;
+        height: 2rem;
+        color: white;
+        padding: 0 2rem;
+      }
+`
 function Modal() {
   const {isOpenModal} = useContext(ModalContext);
   const {modalType} = isOpenModal

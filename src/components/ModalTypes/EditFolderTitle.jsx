@@ -1,40 +1,31 @@
-import React,{useContext} from 'react'
-import {Header,Heading} from '../Modal'
+import React,{useContext, useState} from 'react'
+import {Header,CloseButton,Input} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
-import styled from 'styled-components'
 import { ModalContext } from '../../context/ModalContext'
-
-const InputTag = styled.div`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-`
-const InputTagStyling = styled.input`
-      margin: 5px;
-    width: 250px;
-    height: 25px;
-`
-const ButtonStyling = styled.button`
-       background-color: black;
-    color: white;
-    margin: 10px;
-    width: 125px;
-    height: 25px;
-    font-size: .8rem;
-`
+import { PlaygroundContext } from '../../context/PlaygroundContext'
 
 function EditFolderTitle() {
-  const {closeModal} = useContext(ModalContext)
+  const {closeModal,isOpenModal} = useContext(ModalContext)
+  const {editFoldertitle,folders} = useContext(PlaygroundContext)
+  const {folderId} = isOpenModal.identifiers.folderId;
+  const [folderTitle,setFolderTitle] = useState(folders[folderId].title)
+
+  // console.log(folderTitle)
   return (
     <>
       <Header>
-        <Heading>Edit Folder Title</Heading>
-        <IoCloseSharp onClick={()=>closeModal()}/>
+        <h2>Edit Folder Title</h2>
+        <CloseButton onClick={()=>closeModal()}>
+        <IoCloseSharp/>
+        </CloseButton>
       </Header>
-      <InputTag>
-          <InputTagStyling type="text"/>
-          <ButtonStyling>Update Title</ButtonStyling>
-      </InputTag>
+      <Input>
+          <input type="text" onChange={(e)=>setFolderTitle(e.target.value)}/>
+          <button onClick={()=>{ 
+            editFoldertitle(folderId,folderTitle)
+            closeModal()
+          }}>Update Title</button>
+      </Input>
       </>
   )
 }

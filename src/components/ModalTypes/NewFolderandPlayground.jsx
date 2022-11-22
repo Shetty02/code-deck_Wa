@@ -1,62 +1,67 @@
-import React ,{useContext} from 'react'
-import {Header,Heading} from '../Modal'
+import React ,{useContext, useState} from 'react'
+import {CloseButton, Header} from '../Modal'
 import {IoCloseSharp} from 'react-icons/io5'
 import styled from 'styled-components'
+import Select from 'react-select'
 import { ModalContext } from '../../context/ModalContext'
 
-const InputTag = styled.div`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-`
-const InputTagStyling = styled.input`
-    margin: 5px;
-    width: 250px;
-    height: 25px;
-    
-`
-const SelectTag = styled.select`
-     width: 120px;
-    height: 35px;
-    margin: 10px;
-`
-const ButtonStyling = styled.button`
-       background-color: black;
-    color: white;
-    margin: 5px;
-    width: 250px;
-    height: 25px;
-    font-size: .8rem;
-`
-const SpanTag = styled.span`
-    display: grid;
-    grid-template-columns: .8fr .6fr;
-    justify-content: center;
-    align-items: center;
-`
 
+const InputWithSelect = styled.div `
+        display: grid;
+        grid-template-columns:0.5fr 1fr;
+        row-gap: 1rem;
+        column-gap: 1rem;
+        margin-top:1.2rem;
+        align-items: center;
+
+        input{
+        flex-grow: 1;
+        height: 2rem;
+        }
+
+        button{
+          background: #241f21;
+          height: 2rem;
+          color: white;
+          padding: 0 2rem;
+        }
+`
 function NewFolderandPlayground() {
+  const languageOptions = [
+    {value:"C++", label:"C++"},
+    {value:"C", label:"C"},
+    {value:"Java", label:"Java"},
+    {value:"Phyton", label:"Phyton"},
+    {value:"Javascript", label:"Javascript"},
+  ];
+
+  const [language, setLanguage] = useState(languageOptions[0]);
+
   const {closeModal} = useContext(ModalContext)
+
+  const handleLanguageChange = (selectLanguage)=>{
+        setLanguage(selectLanguage);
+  }
   return ( 
   <>
-   <Header style={{gap:"15px"}}>
-      <Heading>Create New Folder and Playground</Heading>
-      <IoCloseSharp onClick={()=>closeModal()} style = {{cursor:"pointer"}}/>
+   <Header>
+      <h2>Create New Folder and Playground</h2>
+      <CloseButton onClick={()=>closeModal()}>
+      <IoCloseSharp/>
+      </CloseButton>
     </Header>
-    <InputTag>
-              <SpanTag>Enter Folder Name<InputTagStyling type="text" /></SpanTag>
-              <SpanTag>Enter Card Name <InputTagStyling type="text" /></SpanTag>
-    </InputTag>
-    <SpanTag>
-
-             <SelectTag >
-            <option value="C++">C++</option>
-            <option value="C">C</option>
-            <option value="Java">Java</option>
-            <option value="Phyton">Phyton</option>
-           </SelectTag>
-              <ButtonStyling>Create Playground</ButtonStyling>
-    </SpanTag>
+    <InputWithSelect>
+              <label>Enter Folder Name</label>
+              <input type="text" />
+              <label>Enter Card Name</label>
+              <input type="text" />
+             <Select 
+             value={language}
+             options={languageOptions}
+             onChange={handleLanguageChange}
+             />
+              <button>Create Playground</button>
+    </InputWithSelect>
     </>
   )
 }
