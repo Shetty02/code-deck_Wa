@@ -7,6 +7,7 @@ import { ModalContext } from '../../context/ModalContext'
 const StyledHome = styled.div`
   width: 100%;
   height: 100vh;
+ 
 `
 function Home() {
   // const[isOpenModal, setIsOpenModal] = useState(true);
