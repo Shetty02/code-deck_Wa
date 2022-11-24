@@ -1,5 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 // Theme
 import { githubDark, githubLight } from '@uiw/codemirror-theme-github'
@@ -18,52 +19,65 @@ import { cpp } from '@codemirror/lang-cpp'
 import { java } from '@codemirror/lang-java'
 import { javascript } from '@codemirror/lang-javascript'
 import { python } from '@codemirror/lang-python'
-import Select from 'react-select'
-function CodeEditor() {
-    const[theme,setTheme] = useState(githubDark);
-    const[language,setLanguage] = useState(javascript);
-    const[code,setCode] = useState(`console.log('hello world!');`)
 
-    const themeOptions =[
-      {value:githubDark, label:'githubDark'},
-      {value:githubLight, label:'githubLight'},
-      {value:'duotoneDark', label:'duotoneDark'},
-      {value:'duotoneLight', label:'duotoneLight'},
-      {value:'dracula', label:'dracula'},
-      {value:'bespin', label:'bespin'},
-      {value:'xcodeDark', label:'xcodeDark'},
-      {value:'xcodeLight', label:'xcodeLight'},
-      {value:'okaidia ', label:'okaidia '},
-    ]
+
+const CodeEditorContainer = styled.div`
+      height: calc(100vh - 12.5rem);
+
+      & > div{
+        height: 100%;
+      }
+`
+
+function CodeEditor({
+  currentLanguage,
+    currentTheme,
+   currentCode ,
+  setCurrentCode,
+}) {
+   
     
-    const languageOptions = [
-      {value:'cpp', label:'cpp'},
-      {value:'java', label:'java'},
-      {value:'javascript', label:'javascript'},
-      {value:'phyton', label:'phyton'},
+  const[theme,setTheme] = useState(githubDark);
+  const[language,setLanguage] = useState(javascript);
 
-    ]
+  
+  useEffect(()=>{
+    if(currentLanguage === 'cpp')
+    setLanguage(cpp);
+    if(currentLanguage === 'java')
+    setLanguage(java);
+    if(currentLanguage === 'javascript')
+    setLanguage(javascript);
+    if(currentLanguage === 'python')
+    setLanguage(python);
+  },[currentLanguage])
 
-    const handleThemeChange = (selectedOptions)=>{
-      setTheme(selectedOptions);
-    }
-    const handleLanguageChange = (selectedOptions)=>{
-      setLanguage(selectedOptions);
-    }
+  useEffect(()=>{
+    if(currentTheme === 'githubDark')
+    setTheme(githubDark)
+    if(currentTheme === 'githubLight')
+    setTheme(githubLight)
+    if(currentTheme === 'duotoneDark')
+    setTheme(duotoneDark)
+    if(currentTheme === 'duotoneLight')
+    setTheme(duotoneLight)
+    if(currentTheme === 'dracula')
+    setTheme(dracula)
+    if(currentTheme === 'bespin')
+    setTheme(bespin)
+    if(currentTheme === 'xcodeDark')
+    setTheme(xcodeDark)
+    if(currentTheme === 'xcodeLight')
+    setTheme(xcodeLight)
+    if(currentTheme === 'okaidia')
+    setTheme(okaidia)
+  },[currentTheme])
+
+
   return (
-    <div>
-      <Select
-      value={theme.label}
-      options={themeOptions}
-      onChange={handleThemeChange}
-      />
-      <Select
-      value={'language'}
-      options={languageOptions}
-      onChange={handleLanguageChange}
-      />
+    <CodeEditorContainer>
     <CodeMirror
-    value={code}
+    value={currentCode}
     height="100%"
     theme={theme}
     // extensions={[java({ jsx:  true })]}
@@ -73,7 +87,7 @@ function CodeEditor() {
       EditorState.tabSize.of(8),
       EditorState.changeFilter.of(()=>true)
     ]}
-    onChange={(value)=> setCode(value)}
+    onChange={(value)=> setCurrentCode(value)}
     basicSetup={{
       lineNumbers: true,
       highlightActiveLineGutter: true,
@@ -101,7 +115,7 @@ function CodeEditor() {
         lintKeymap: true,
       }}
       />
-      </div>
+      </CodeEditorContainer>
   )
 }
 

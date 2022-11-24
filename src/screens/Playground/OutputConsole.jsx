@@ -1,8 +1,16 @@
 import React from 'react'
+import { Header,TextArea,Console } from './InputConsole'
 
-function OutputConsole() {
+
+function OutputConsole({currentOutput}) {
   return (
-    <div>OutputConsole</div>
+    <Console>
+    <Header>Output:</Header>
+    <TextArea
+    value={currentOutput}
+    disabled
+    />
+    </Console>
   )
 }
 
