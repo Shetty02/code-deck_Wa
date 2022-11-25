@@ -114,7 +114,7 @@ function RightComponent() {
           <FolderIcon>
             <IoTrashOutline onClick={()=> deleteFolder(folderId)}/>
             {/* For deleting the folder */}
-            <BiEditAlt onClick={()=> openModal({
+    <BiEditAlt onClick={()=> openModal({
             show:true,
             modalType:5,
             identifiers:{
@@ -157,7 +157,7 @@ function RightComponent() {
                 >
                   <IoTrashOutline onClick={()=>deletCards(folderId,playgroundId)}/> 
                   {/* For deleting the card */}
-                  <BiEditAlt onClick={()=> openModal({
+         <BiEditAlt onClick={()=> openModal({
             show:true,
             modalType:4,
             identifiers:{

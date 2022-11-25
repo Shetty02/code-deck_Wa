@@ -35,10 +35,10 @@ const InputWithSelect = styled.div `
 
 function NewPlayground() {
   const languageOptions = [
-    {value:"C++", label:"C++"},
-    {value:"Java", label:"Java"},
-    {value:"Phyton", label:"Phyton"},
-    {value:"Javascript", label:"Javascript"}
+    {value:"cpp", label:"cpp"},
+    {value:"java", label:"java"},
+    {value:"python", label:"python"},
+    {value:"javascript", label:"javascript"}
   ];
 
   const[language, setLanguage] = useState(languageOptions[0]);

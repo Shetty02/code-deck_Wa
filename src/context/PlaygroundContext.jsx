@@ -3,6 +3,47 @@ import { v4 as uuid } from 'uuid';
 
 export const PlaygroundContext = createContext();
 
+export const LanguageMap = {
+    "cpp":{
+        id:54,
+        defaultCode:
+        "#include <iostream>\n\n"
+        +"using namespace std;\n\n"
+        +"int main()\n"
+        +"{\n"
+        +"\t cout<<\"Hello World\";\n"
+        +"\t return 0;\n\n"
+        +"}\n"
+        },
+    "java":{
+        id:62,
+        defaultCode:
+        "public class Main\n"
+        +"{\n"
+        +"	public static void main(String[] args) {\n"
+        +"		System.out.println(\"Hello World\");\n"
+        +"	}\n"
+        +"}\n"
+        },
+    "java":{
+        id:62,
+        defaultCode:
+        "public class Main\n"
+        +"{\n"
+        +"	public static void main(String[] args) {\n"
+        +"		System.out.println(\"Hello World\");\n"
+        +"	}\n"
+        +"}\n"
+        },
+    "python":{
+        id:71,
+        defaultCode:`print("Hello World !")`
+        },
+    "javascript":{
+        id:63,
+        defaultCode:`console.log("Hello World !")`
+        },
+}
  const PlaygroundProvider = ({children}) =>{
     const initialItems ={
         [uuid()]:{
@@ -11,10 +52,12 @@ export const PlaygroundContext = createContext();
                 [uuid()]:{
                     title:"Stack",
                     language:"java",
+                    code:LanguageMap["java"].defaultCode
                 },
                 [uuid()]:{
                     title:"LinkedList",
-                    language:"java",
+                    language:"cpp",
+                    code:LanguageMap["cpp"].defaultCode
                 }
             }
         },
@@ -101,7 +144,8 @@ export const PlaygroundContext = createContext();
             const newState = {...oldState};
             newState[folderId].playgrounds[uuid()]={
                 title:cardName,
-                language:language
+                language:language,
+                code:LanguageMap[language].defaultCode
             }
             return newState;
         })
@@ -128,7 +172,8 @@ export const PlaygroundContext = createContext();
                 playgrounds:{
                     [uuid()]:{
                         title:cardName,
-                        language:language
+                        language:language,
+                        code:LanguageMap[language].defaultCode
                     }
                 }
             }
@@ -138,14 +183,7 @@ export const PlaygroundContext = createContext();
     }
     // 6) Editing the Folder title
     const editFoldertitle = (folderId,folderName)=>{
-        // console.log("Edit Folder title",folderId,folderName);
-        // setFolders({
-        //     ...folders,
-        //     [folderId]:{
-        //         ...folders[folderId],
-        //         title: folderName
-        //     }
-        // })
+      
         setFolders((oldState)=>{
             const newState = {...oldState};
 
@@ -179,6 +217,16 @@ export const PlaygroundContext = createContext();
         })
     }
     
+    const savePlayground = (folderId, cardId , newCode, newLanguage) =>{
+        setFolders((oldState)=>{
+            const newState = {...oldState};
+            newState[folderId].playgrounds[cardId].code = newCode;
+            newState[folderId].playgrounds[cardId].language = newLanguage;
+
+            return newState;
+        })
+
+    }
 
     const PlaygroundFeatures = {
         folders:folders,
@@ -188,7 +236,8 @@ export const PlaygroundContext = createContext();
         addFolder:addFolder,
         addCardAndFolder:addCardAndFolder,
         editPlaygroundtitle:editPlaygroundtitle,
-        editFoldertitle:editFoldertitle
+        editFoldertitle:editFoldertitle,
+        savePlayground:savePlayground
     }
     
     return(

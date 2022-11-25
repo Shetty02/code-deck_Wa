@@ -28,11 +28,10 @@ const InputWithSelect = styled.div `
 `
 function NewFolderandPlayground() {
   const languageOptions = [
-    {value:"C++", label:"C++"},
-    {value:"C", label:"C"},
-    {value:"Java", label:"Java"},
-    {value:"Phyton", label:"Phyton"},
-    {value:"Javascript", label:"Javascript"},
+    {value:"cpp", label:"cpp"},
+    {value:"java", label:"java"},
+    {value:"python", label:"python"},
+    {value:"javascript", label:"javascript"},
   ];
 
   const {closeModal} = useContext(ModalContext);

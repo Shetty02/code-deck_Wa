@@ -23,16 +23,26 @@ const Console = styled.div`
 function Playground() {
   const {folderId, playgroundId} = useParams();
 
-  const {folders} = useContext(PlaygroundContext);
+  const {folders, savePlayground} = useContext(PlaygroundContext);
   const {isOpenModal} = useContext(ModalContext);
-  const{title, language} = folders[folderId].playgrounds[playgroundId];
+  const{title, language, code} = folders[folderId].playgrounds[playgroundId];
 
   const [currentLanguage, setCurrentLanguage] = useState(language);
-  const [currentCode, setCurrentCode] = useState('');
+  const [currentCode, setCurrentCode] = useState(code);
   const [currentInput, setCurrentInput] = useState('');
   const [currentOuput, setCurrentOuput] = useState('');
 
   
+
+  // logics for savecode and runcode
+  const saveCode = ()=> {
+    savePlayground(folderId, playgroundId, currentCode, currentLanguage)
+  }
+  const runCode = ()=>{
+    // savePlayground(folderId, playgroundId, currentCode, currentLanguage)
+    console.log("Running Code....")
+  }
+
   return (
     <div>
       <Navbar/>
@@ -45,6 +55,8 @@ function Playground() {
       setCurrentCode = {setCurrentCode}
       folderId = {folderId}
       playgroundId = {playgroundId}
+      saveCode = {saveCode}
+      runCode = {runCode}
       />
       <Console>
         <InputConsole

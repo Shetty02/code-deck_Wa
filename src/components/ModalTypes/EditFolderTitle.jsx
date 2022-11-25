@@ -7,10 +7,11 @@ import { PlaygroundContext } from '../../context/PlaygroundContext'
 function EditFolderTitle() {
   const {closeModal,isOpenModal} = useContext(ModalContext)
   const {editFoldertitle,folders} = useContext(PlaygroundContext)
-  const {folderId} = isOpenModal.identifiers.folderId;
+  
+  const folderId = isOpenModal.identifiers.folderId;
   const [folderTitle,setFolderTitle] = useState(folders[folderId].title)
 
-  // console.log(folderTitle)
+  console.log(folderTitle)
   return (
     <>
       <Header>
