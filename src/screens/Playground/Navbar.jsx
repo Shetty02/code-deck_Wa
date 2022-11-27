@@ -1,7 +1,7 @@
 import React from 'react'
 import  logo  from '../../assests/logo.png'
 import styled from 'styled-components'
-import { Navigate, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 
 const NavbarContainer = styled.div`
     background:#241f21;

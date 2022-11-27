@@ -5,9 +5,11 @@ import OutputConsole from './OutputConsole'
 import Navbar from './Navbar'
 import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
-import {PlaygroundContext} from '../../context/PlaygroundContext'
+import {LanguageMap, PlaygroundContext} from '../../context/PlaygroundContext'
 import { ModalContext } from '../../context/ModalContext'
 import Modal from '../../components/Modal'
+import { Buffer } from 'buffer'
+import axios from 'axios'
 
 
 const MainContainer = styled.div`
@@ -24,13 +26,13 @@ function Playground() {
   const {folderId, playgroundId} = useParams();
 
   const {folders, savePlayground} = useContext(PlaygroundContext);
-  const {isOpenModal} = useContext(ModalContext);
+  const {isOpenModal, openModal, closeModal} = useContext(ModalContext);
   const{title, language, code} = folders[folderId].playgrounds[playgroundId];
 
   const [currentLanguage, setCurrentLanguage] = useState(language);
   const [currentCode, setCurrentCode] = useState(code);
   const [currentInput, setCurrentInput] = useState('');
-  const [currentOuput, setCurrentOuput] = useState('');
+  const [currentOutput, setcurrentOutput] = useState('');
 
   
 
@@ -38,9 +40,100 @@ function Playground() {
   const saveCode = ()=> {
     savePlayground(folderId, playgroundId, currentCode, currentLanguage)
   }
-  const runCode = ()=>{
-    // savePlayground(folderId, playgroundId, currentCode, currentLanguage)
-    console.log("Running Code....")
+
+  const encode = (str)=>{
+      return Buffer.from(str,'binary').toString('base64');
+  }
+  const decode = (str)=>{
+      return Buffer.from(str,'base64').toString();
+  }
+
+  const postSubmission = async (language_id, source_code, stdin) => {
+    const options = {
+      method: 'POST',
+      url: 'https://judge0-ce.p.rapidapi.com/submissions',
+      params: {base64_encoded: 'true', fields: '*'},
+      headers: {
+        'content-type': 'application/json',
+        'Content-Type': 'application/json',
+        'X-RapidAPI-Key': '084ebe380fmsh165de6ddc87dca7p196f72jsnb5c0da15154d',
+        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+      },
+      data: JSON.stringify({
+              language_id: language_id,
+              source_code: source_code,
+              stdin: stdin 
+      })
+    };
+
+    const res = await axios.request(options);
+    return res.data.token 
+  }
+
+  const getoutput = async (token) => {
+    const options = {
+      method: 'GET',
+      url: "https://judge0-ce.p.rapidapi.com/submissions/" + token,
+      params: {base64_encoded: 'true', fields: '*'},
+      headers: {
+        'X-RapidAPI-Key': '084ebe380fmsh165de6ddc87dca7p196f72jsnb5c0da15154d',
+        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+      }
+    };
+
+        const res = await axios.request(options);
+        // console.log(res);
+        if(res.data.status_id <= 2){
+          const res2 = await getoutput(token);
+          return res2.data;
+        }
+        return res.data;
+  }
+
+  const runCode = async()=>{
+    openModal({ 
+      show:true,
+      modalType:6,
+      identifires:{
+        folderId:"",
+        cardId:"",
+      }
+    })
+    // console.log("Running Code....")
+    const language_id = LanguageMap[currentLanguage].id;
+    const source_code = encode(currentCode);
+    const stdin = encode(currentInput);
+
+    // passong the thingd to post the submission
+    const token = await postSubmission(language_id, source_code, stdin);
+
+    // getting the output from token.
+    // getoutput(token);
+    const res = await getoutput(token);
+    const status_name = res.status.description;
+    const memory_taken = res.memory;
+    const time_taken = res.time;
+    const decoded_output = decode(res.stdout ? res.stdout : "");
+    const decoded_compile_output = decode(res.compile_output ? res.compile_output : "");
+    const decoded_error = decode(res.stderr ? res.stderr : "");
+
+    let final_output = '';
+
+    if(res.status_id !== 3){
+      if(decoded_compile_output === ""){
+        final_output = decoded_error;
+      }
+      else{
+        final_output = decoded_compile_output;
+      }
+    }
+    else{
+      final_output = decoded_output;
+    }
+
+    setcurrentOutput(status_name + ". memory"+":"+memory_taken + " time"+":"+  time_taken + "\n\n" + final_output);
+    // setcurrentOutput(status_name +  "\n\n" + final_output);
+    closeModal();
   }
 
   return (
@@ -64,7 +157,7 @@ function Playground() {
         setCurrentInput = {setCurrentInput}
         />
         <OutputConsole
-        currentOuput = {currentOuput}
+        currentOutput = {currentOutput}
         />
       </Console>
       </MainContainer>

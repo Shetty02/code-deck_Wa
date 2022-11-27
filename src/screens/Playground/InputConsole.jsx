@@ -26,6 +26,7 @@ export const TextArea = styled.textarea`
    padding-top: 0.5rem;
    flex-grow: 1;
    font-size: 1.1rem;
+   color: blue;
 `
 function InputConsole({currentInput, setCurrentInput}) {
   return (
@@ -34,7 +35,7 @@ function InputConsole({currentInput, setCurrentInput}) {
       Input:
     </Header>
     <TextArea
-    onClick={(e)=>setCurrentInput(e.target.value)}
+    onChange={(e)=>setCurrentInput(e.target.value)}
     value = {currentInput}
     />
     </Console>

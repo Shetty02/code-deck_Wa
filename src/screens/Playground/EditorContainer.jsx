@@ -155,8 +155,8 @@ function  EditorContainer({
         setCurrentCode = {setCurrentCode}
         />
         <LowerToolBar>
-          <label htmlFor="codeFile"><BiImport /> <span>import Code</span> 
-            <input type="file" accept='.' id='codeFile' /> 
+          <label htmlFor="codefile"><BiImport /> <span>import Code</span> 
+            <input type="file" accept="." id='codefile' /> 
           </label>
 
           <Button onClick={runCode}>Run Code</Button>

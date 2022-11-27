@@ -7,8 +7,8 @@ function OutputConsole({currentOutput}) {
     <Console>
     <Header>Output:</Header>
     <TextArea
-    value={currentOutput}
-    disabled
+    value = {currentOutput}
+    // disabled
     />
     </Console>
   )
