@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import {BiImport} from'react-icons/bi'
+import { LowerToolBar } from './EditorContainer'
 
 export const Console = styled.div`
   background:#fff;
@@ -15,7 +16,17 @@ export const Header = styled.div`
     font-weight: 700;
     display: flex;
     align-items: center;
-  
+    justify-content: space-between;
+  input{
+    display: none;
+  }
+  label, a{
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: black;
+  }
 `
 export const TextArea = styled.textarea`
    resize: none;
@@ -26,13 +37,16 @@ export const TextArea = styled.textarea`
    padding-top: 0.5rem;
    flex-grow: 1;
    font-size: 1.1rem;
-   color: blue;
+   color: black;
 `
-function InputConsole({currentInput, setCurrentInput}) {
+function InputConsole({currentInput, setCurrentInput, getFile}) {
   return (
     <Console>
     <Header>
       Input:
+      <label htmlFor="inputfile">
+            <input type="file" accept="." id='inputfile' onChange={(e) => getFile(e, setCurrentInput)} /> <BiImport /> Import Input
+          </label>
     </Header>
     <TextArea
     onChange={(e)=>setCurrentInput(e.target.value)}

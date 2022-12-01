@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import CodeEditor from './CodeEditor'
 import styled from 'styled-components'
-import  {BiEditAlt,  BiImport} from'react-icons/bi'
+import  {BiEditAlt,  BiImport, BiExport} from'react-icons/bi'
 import {ModalContext} from '../../context/ModalContext'
 import Select from 'react-select'
 import { LanguageMap } from '../../context/PlaygroundContext'
@@ -44,7 +44,7 @@ border: none;
 font-weight:700;
 cursor: pointer;
 `
-const LowerToolBar = styled.div`
+export const LowerToolBar = styled.div`
 height: 4rem;
 display: flex;
 align-items: center;
@@ -65,6 +65,11 @@ label{
   gap: .7rem;
 }
 `
+const AnchorTag = styled.a`
+    text-decoration: none;  
+    font-size: 1.2rem;
+    color: black;
+`
 function  EditorContainer({
   title,
   currentLanguage,
@@ -74,8 +79,8 @@ function  EditorContainer({
    folderId,
    playgroundId,
    saveCode,
-   runCode
-  
+   runCode,
+   getFile
   }) {
 
     const {openModal} = useContext(ModalContext)
@@ -155,9 +160,19 @@ function  EditorContainer({
         setCurrentCode = {setCurrentCode}
         />
         <LowerToolBar>
-          <label htmlFor="codefile"><BiImport /> <span>import Code</span> 
-            <input type="file" accept="." id='codefile' /> 
+          <label htmlFor="codefile"><BiImport /> <span>Import Code</span> 
+            <input type="file" accept="." id='codefile' onChange={(e) => getFile(e, setCurrentCode)} /> 
           </label>
+
+            <AnchorTag
+          href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+            setCurrentCode
+            )}`        
+          }
+          download="output.txt"
+          >
+          <BiExport /> Export Code
+        </AnchorTag>
 
           <Button onClick={runCode}>Run Code</Button>
         </LowerToolBar>
