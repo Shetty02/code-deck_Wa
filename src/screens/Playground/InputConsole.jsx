@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {BiImport} from'react-icons/bi'
-import { LowerToolBar } from './EditorContainer'
+import {BiImport} from'react-icons/bi'    
 
 export const Console = styled.div`
   background:#fff;
@@ -12,7 +11,7 @@ export const Header = styled.div`
     height: 4rem;
     background: gray;
     padding: 0 1rem;
-    font-size: 1.45rem;
+    font-size: 1.2  5rem;
     font-weight: 700;
     display: flex;
     align-items: center;

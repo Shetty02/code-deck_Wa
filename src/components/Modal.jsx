@@ -11,15 +11,17 @@ const ModalContainer = styled.div`
         width: 100%;
         height: 100vh;
         
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 2  ;
         display: flex;
         justify-content: center;
         align-items: center;
         `
 const ModalContent = styled.div`
         background-color: #fff;
-        padding: .5rem;
-        border-radius: 5px;
+        padding: 2rem;
+        width: 35%;
+        border-radius: 10px;
         /* margin: 5px; */
     
 `
@@ -27,9 +29,9 @@ export const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:.75rem 0;
+    /* padding:.75rem 0;
     font-size:1rem;
-    gap: 10rem;
+    gap: 10rem; */
 
 `
 export const Heading = styled.h3`
@@ -45,6 +47,7 @@ export const CloseButton = styled.button`
         font-size: 2rem;
         cursor: pointer;
         border: 0;
+        outline: 0;
 `
 export const Input = styled.div`
       display: flex;
