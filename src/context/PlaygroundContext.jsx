@@ -1,44 +1,33 @@
 import { createContext , useEffect, useState} from "react";
 import { v4 as uuid } from 'uuid';
-
 export const PlaygroundContext = createContext();
 
 export const LanguageMap = {
-    "cpp":{
-        id:54,
-        defaultCode:
-        "#include <iostream>\n\n"
-        +"using namespace std;\n\n"
-        +"int main()\n"
-        +"{\n"
-        +"\t cout<<\"Hello World\";\n"
-        +"\t return 0;\n\n"
-        +"}\n"
-        },
-    "java":{
-        id:62,
-        defaultCode:
-        "public class Main\n"
-        +"{\n"
-        +"	public static void main(String[] args) {\n"
-        +"		System.out.println(\"Hello World\");\n"
-        +"	}\n"
-        +"}\n"
-        },
-    "java":{
-        id:62,
-        defaultCode:
-        "public class Main\n"
-        +"{\n"
-        +"	public static void main(String[] args) {\n"
-        +"		System.out.println(\"Hello World\");\n"
-        +"	}\n"
-        +"}\n"
-        },
-    "python":{
-        id:71,
-        defaultCode:`print("Hello World !")`
-        },
+    // "cpp":{
+    //     id:54,
+    //     defaultCode:
+    //     "#include <iostream>\n\n"
+    //     +"using namespace std;\n\n"
+    //     +"int main()\n"
+    //     +"{\n"
+    //     +"\t cout<<\"Hello World\";\n"
+    //     +"\t return 0;\n\n"
+    //     +"}\n"
+    //     },
+    // "java":{
+    //     id:62,
+    //     defaultCode:
+    //     "public class Main\n"
+    //     +"{\n"
+    //     +"	public static void main(String[] args) {\n"
+    //     +"		System.out.println(\"Hello World\");\n"
+    //     +"	}\n"
+    //     +"}\n"
+    //     },
+    // "python":{
+    //     id:71,
+    //     defaultCode:`print("Hello World !")`
+    //     },
     "javascript":{
         id:63,
         defaultCode:`console.log("Hello World !")`
@@ -51,18 +40,18 @@ export const LanguageMap = {
             playgrounds:{
                 [uuid()]:{
                     title:"Stack",
-                    language:"java",
-                    code:LanguageMap["java"].defaultCode
+                    language:"javascript",
+                    code:LanguageMap["javascript"].defaultCode
                 },
-                [uuid()]:{
-                    title:"LinkedList",
-                    language:"cpp",
-                    code:LanguageMap["cpp"].defaultCode
-                }
+                // [uuid()]:{
+                //     title:"LinkedList",
+                //     language:"cpp",
+                //     code:LanguageMap["cpp"].defaultCode
+                // }
             }
         },
     }
-    const [folders,setFolders] =useState(()=>{
+    const [folders,setFolders] = useState(()=>{
         let localData = localStorage.getItem('playgrounds-data');
         if(localData === null || localData === undefined){
             return initialItems;

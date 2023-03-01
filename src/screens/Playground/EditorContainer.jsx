@@ -9,7 +9,9 @@ const StyledEditorContainer = styled.div`
       display: flex;
       flex-direction: column;
 `
-
+const styles = {
+  padding: "0 0.5rem"
+}
 const UpperTool = styled.div`
       background: #fff;
       height: 4rem;
@@ -31,7 +33,6 @@ const Title = styled.div`
 const SelectBars =styled.div`
     display: flex;
     gap: 1rem;
-
     & > div{
       width: 10rem;
     }
@@ -59,7 +60,6 @@ input{
 }
 label{
   font-size: 1.2rem;
-
   display: flex;
   align-items: center;
   gap: .7rem;
@@ -86,10 +86,10 @@ function  EditorContainer({
     const {openModal} = useContext(ModalContext)
 
     const languageOptions = [
-      {value:'cpp', label:'cpp'},
-      {value:'java', label:'java'},
-      {value:'javascript', label:'javascript'},
-      {value:'python', label:'python'},
+      // {value:'cpp', label:'cpp'},
+      // {value:'java', label:'java'},
+      {value:'javascript', label:'Javascript'},
+      // {value:'python', label:'python'},
 
     ]
 
@@ -101,7 +101,7 @@ function  EditorContainer({
       setCurrentLanguage(selectedOptions.value);
       setCurrentCode(LanguageMap[selectedOptions.value].defaultCode);
     }
-    const[currentTheme,setCurrentTheme] = useState({value:'githubDark', label:'githubDark'});
+    const[currentTheme,setCurrentTheme] = useState({value:'githubDark', label:'Github Dark'});
     const[language,setLanguage] = useState(() => {
       for(let i = 0; i < languageOptions.length; i++){
         if(languageOptions[i].value === currentLanguage){
@@ -113,15 +113,15 @@ function  EditorContainer({
     // const[code,setCode] = useState(`console.log('hello world!');`)
 
     const themeOptions =[
-      {value:'githubDark', label:'githubDark'},
-      {value:'githubLight', label:'githubLight'},
-      {value:'duotoneDark', label:'duotoneDark'},
-      {value:'duotoneLight', label:'duotoneLight'},
-      {value:'dracula', label:'dracula'},
-      {value:'bespin', label:'bespin'},
-      {value:'xcodeDark', label:'xcodeDark'},
-      {value:'xcodeLight', label:'xcodeLight'},
-      {value:'okaidia ', label:'okaidia '},
+      {value:'githubDark', label:'Github Dark'},
+      {value:'githubLight', label:'Github Light'},
+      {value:'duotoneDark', label:'Duotone Dark'},
+      {value:'duotoneLight', label:'Duotone Light'},
+      {value:'dracula', label:'Dracula'},
+      {value:'bespin', label:'Bespin'},
+      {value:'xcodeDark', label:'Xcode Dark'},
+      {value:'xcodeLight', label:'Xcode Light'},
+      {value:'okaidia ', label:'Okaidia '},
     ]
   return (
     <StyledEditorContainer>
@@ -140,17 +140,38 @@ function  EditorContainer({
             />
           </Title>
           <SelectBars>
+            <div style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "38rem",
+                  alignItems: "center"
+            }}>
+              <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "15rem",
+                alignItems: "center"
+              }}
+              >
             <Button onClick={saveCode}>save code</Button>
             <Select
             options={languageOptions}
             value={language}
             onChange={handleLanguageChange}
             />
+            </div>
+              <LowerToolBar>
+            <label htmlFor="codefile"><BiImport /> <span>Import Code</span> 
+            <input type="file" accept="." id='codefile' onChange={(e) => getFile(e, setCurrentCode)} /> 
+          </label>
+              </LowerToolBar>
             <Select
             options={themeOptions}
             value={currentTheme}
             onChange={handleThemeChange}
             />
+            </div>
           </SelectBars>
        </UpperTool>
         <CodeEditor
@@ -160,13 +181,13 @@ function  EditorContainer({
         setCurrentCode = {setCurrentCode}
         />
         <LowerToolBar>
-          <label htmlFor="codefile"><BiImport /> <span>Import Code</span> 
+          {/* <label htmlFor="codefile"><BiImport /> <span>Import Code</span> 
             <input type="file" accept="." id='codefile' onChange={(e) => getFile(e, setCurrentCode)} /> 
-          </label>
+          </label> */}
 
             <AnchorTag
           href={`data:text/plain;charset=utf-8,${encodeURIComponent(
-            setCurrentCode
+            currentCode
             )}`        
           }
           download="output.txt"
