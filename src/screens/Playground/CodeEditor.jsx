@@ -174,7 +174,7 @@ function CodeEditor({
                 alignItems: "center"
           }}>
             <LowerToolBar>
-          <label htmlFor="codefile" style={{color:`${["xcodeDark","githubDark"].indexOf(currentTheme.value)!==-1 ? "white": "black" }`}}><BiImport /> <span>Import Code</span> 
+          <label htmlFor="codefile" style={{color:`${["xcodeDark","githubDark","duotoneDark","dracula","bespin"].indexOf(currentTheme.value)!==-1 ? "white": "black" }`}}><BiImport /> <span>Import Code</span> 
           <input type="file" accept="." id='codefile' onChange={(e) => getFile(e, setCurrentCode)} /> 
         </label>
             </LowerToolBar>
