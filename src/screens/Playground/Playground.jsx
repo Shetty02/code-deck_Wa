@@ -161,10 +161,9 @@ function Playground() {
   }
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <MainContainer>
       <EditorContainer
-      title = {title}
       currentLanguage = {currentLanguage}
       setCurrentLanguage = {setCurrentLanguage}
       currentCode = {currentCode}
@@ -175,7 +174,7 @@ function Playground() {
       runCode = {runCode}
       getFile = {getFile}
       />
-      <Console>
+      {/* <Console>
         <InputConsole
         currentInput = {currentInput}
         setCurrentInput = {setCurrentInput}
@@ -184,7 +183,7 @@ function Playground() {
         <OutputConsole
         currentOutput = {currentOutput}
         />
-      </Console>
+      </Console> */}
       </MainContainer>
       {isOpenModal.show && <Modal/>}
       </div>

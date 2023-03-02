@@ -1,4 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror'
+import  {BiEditAlt,  BiImport, BiExport} from'react-icons/bi'
+import Select from 'react-select'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -22,102 +24,182 @@ import { javascript } from '@codemirror/lang-javascript'
 
 
 const CodeEditorContainer = styled.div`
-      height: calc(100vh - 12.5rem);
-
+      height: 100vh;
+      width: 100vw;
       & > div{
         height: 100%;
       }
 `
+const UpperTool = styled.div`
+      height: 2rem;
+      position: absolute;
+      z-index: 1;
+      top:2px;
+      right:0px;
+`
+
+const SelectBars =styled.div`
+    display: flex;
+    gap: 1rem;
+    & > div{
+      width: 10rem;
+    }
+`
+
+// const handlebtn = () =>{
+//   console.log("Hi Nehal")
+// }
+
+const LowerToolBar = styled.div`
+height: 2rem;
+/* color: white; */
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 2rem;
+
+span{
+  cursor: pointer;
+}
+input{
+  display:none;
+}
+label{
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+`
 
 function CodeEditor({
-  currentLanguage,
-    currentTheme,
-   currentCode ,
-  setCurrentCode,
+    currentLanguage,
+    currentCode ,
+    setCurrentCode,
+    getFile
 }) {
-   
-    
+  const handleThemeChange = (selectedOptions)=>{
+    setCurrentTheme(selectedOptions);
+  }   
+  const[currentTheme,setCurrentTheme] = useState({value:'githubDark', label:'Github Dark'});    
+  const themeOptions =[
+    {value:'githubDark', label:'Github Dark'},
+    {value:'githubLight', label:'Github Light'},
+    {value:'duotoneDark', label:'Duotone Dark'},
+    {value:'duotoneLight', label:'Duotone Light'},
+    {value:'dracula', label:'Dracula'},
+    {value:'bespin', label:'Bespin'},
+    {value:'xcodeDark', label:'Xcode Dark'},
+    {value:'xcodeLight', label:'Xcode Light'},
+    {value:'okaidia ', label:'Okaidia '},
+  ]
   const[theme,setTheme] = useState(githubDark);
   const[language,setLanguage] = useState(javascript);
 
   
   useEffect(()=>{
-    // if(currentLanguage === 'cpp')
-    // setLanguage(cpp);
-    // if(currentLanguage === 'java')
-    // setLanguage(java);
     if(currentLanguage === 'javascript')
     setLanguage(javascript);
-    // if(currentLanguage === 'python')
-    // setLanguage(python);
   },[currentLanguage])
 
   useEffect(()=>{
-    // if(currentTheme === 'githubDark')
-    if(currentTheme === 'githubDark')
+    if(currentTheme.value === 'githubDark')
     setTheme(githubDark)
-    if(currentTheme === 'githubLight')
+    if(currentTheme.value === 'githubLight')
     setTheme(githubLight)
-    if(currentTheme === 'duotoneDark')
+    if(currentTheme.value === 'duotoneDark')
     setTheme(duotoneDark)
-    if(currentTheme === 'duotoneLight')
+    if(currentTheme.value === 'duotoneLight')
     setTheme(duotoneLight)
-    if(currentTheme === 'dracula')
+    if(currentTheme.value === 'dracula')
     setTheme(dracula)
-    if(currentTheme === 'bespin')
+    if(currentTheme.value === 'bespin')
     setTheme(bespin)
-    if(currentTheme === 'xcodeDark')
+    if(currentTheme.value === 'xcodeDark')
     setTheme(xcodeDark)
-    if(currentTheme === 'xcodeLight')
+    if(currentTheme.value === 'xcodeLight')
     setTheme(xcodeLight)
-    if(currentTheme === 'okaidia')
+    if(currentTheme.value === 'okaidia')
     setTheme(okaidia)
-  },[currentTheme])
+  },[currentTheme.value])
 
 
   return (
     <CodeEditorContainer>
-    <CodeMirror
-    value={currentCode}
-    height="100%"
-    theme={theme}
-    // extensions={[java({ jsx:  true })]}
-    extensions={[
-      language,
-      indentUnit.of("        "),  
-      EditorState.tabSize.of(8),
-      EditorState.changeFilter.of(()=>true)
-    ]}
-    onChange={(value)=> setCurrentCode(value)}
-    basicSetup={{
-      lineNumbers: true,
-      highlightActiveLineGutter: true,
-      highlightSpecialChars: true,
-      history: true,
-      foldGutter: true,
-      drawSelection: true,
-      dropCursor: true,
-      allowMultipleSelections: true,
-      indentOnInput: true,
-      syntaxHighlighting: true,
-      bracketMatching: true,
-      closeBrackets: true,
-        autocompletion: true,
-        rectangularSelection: true,
-        crosshairCursor: true,
-        highlightActiveLine: true,
-        highlightSelectionMatches: true,
-        closeBracketsKeymap: true,
-        defaultKeymap: true,
-        searchKeymap: true,
-        historyKeymap: true,
-        foldKeymap: true,
-        completionKeymap: true,
-        lintKeymap: true,
-      }}
-      />
-      </CodeEditorContainer>
-  )
+      <CodeMirror
+        value={currentCode}
+        height="100%"
+        theme={theme}
+        // extensions={[java({ jsx:  true })]}
+        extensions={[
+          language,
+          indentUnit.of("        "),
+          EditorState.tabSize.of(8),
+          EditorState.changeFilter.of(() => true),
+        ]}
+        onChange={(value) => setCurrentCode(value)}
+        basicSetup={{
+          lineNumbers: true,
+          highlightActiveLineGutter: true,
+          highlightSpecialChars: true,
+          history: true,
+          foldGutter: true,
+          drawSelection: true,
+          dropCursor: true,
+          allowMultipleSelections: true,
+          indentOnInput: true,
+          syntaxHighlighting: true,
+          bracketMatching: true,
+          closeBrackets: true,
+          autocompletion: true,
+          rectangularSelection: true,
+          crosshairCursor: true,
+          highlightActiveLine: true,
+          highlightSelectionMatches: true,
+          closeBracketsKeymap: true,
+          defaultKeymap: true,
+          searchKeymap: true,
+          historyKeymap: true,
+          foldKeymap: true,
+          completionKeymap: true,
+          lintKeymap: true,
+        }}
+      >
+        <UpperTool>
+        <SelectBars>
+          <div style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "25rem",
+                alignItems: "center"
+          }}>
+            <LowerToolBar>
+          <label htmlFor="codefile" style={{color:`${["xcodeDark","githubDark"].indexOf(currentTheme.value)!==-1 ? "white": "black" }`}}><BiImport /> <span>Import Code</span> 
+          <input type="file" accept="." id='codefile' onChange={(e) => getFile(e, setCurrentCode)} /> 
+        </label>
+            </LowerToolBar>
+          <Select
+          options={themeOptions}
+          value={currentTheme}
+          onChange={handleThemeChange}
+          />
+          </div>
+        </SelectBars>
+     </UpperTool>
+        {/* <button
+          onClick={handlebtn}
+          style={{
+            position: "absolute",
+            zIndex: "10",
+            top: "10px",
+            right: "10px",
+          }}
+        >
+          Nehal
+        </button> */}
+      </CodeMirror>
+    </CodeEditorContainer>
+  );
 }
 
 export default CodeEditor
