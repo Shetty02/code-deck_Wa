@@ -27,7 +27,7 @@ function Playground() {
 
   const {folders, savePlayground} = useContext(PlaygroundContext);
   const {isOpenModal, openModal, closeModal} = useContext(ModalContext);
-  const{title, language, code} = folders[folderId].playgrounds[playgroundId];
+  const{language, code} = folders[folderId].playgrounds[playgroundId];
 
   const [currentLanguage, setCurrentLanguage] = useState(language);
   const [currentCode, setCurrentCode] = useState(code);
@@ -139,7 +139,7 @@ function Playground() {
       final_output = decoded_output;
     }
 
-    setcurrentOutput(status_name + ". memory"+":"+memory_taken + " time"+":"+  time_taken + "\n\n" + final_output);
+    setcurrentOutput(status_name + ". memory:" + memory_taken + " time:" + time_taken + "\n\n" + final_output);
     // setcurrentOutput(status_name +  "\n\n" + final_output);
     closeModal();
   }

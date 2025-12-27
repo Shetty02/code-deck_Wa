@@ -99,6 +99,13 @@ const selectStyles = {
     })
 };
 
+const languageOptions = [
+    { value: 'cpp', label: 'C++' },
+    { value: 'java', label: 'Java' },
+    { value: 'python', label: 'Python' },
+    { value: 'javascript', label: 'JavaScript' },
+];
+
 function CodeEditor({
     currentLanguage,
     currentCode,
@@ -123,12 +130,6 @@ function CodeEditor({
         { value: 'xcodeLight', label: 'Xcode Light' },
         { value: 'okaidia ', label: 'Okaidia ' },
     ]
-    const languageOptions = [
-        { value: 'cpp', label: 'C++' },
-        { value: 'java', label: 'Java' },
-        { value: 'python', label: 'Python' },
-        { value: 'javascript', label: 'JavaScript' },
-    ];
 
     const [theme, setTheme] = useState(githubDark);
     const [language, setLanguage] = useState(javascript);
