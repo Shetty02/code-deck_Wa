@@ -31,7 +31,7 @@ function Error404() {
     setTimeout(()=>{
       navigate('/');
     },3000)
-  }, [])
+  }, [navigate])
   return (
     <Container>
       <Title>404</Title>
