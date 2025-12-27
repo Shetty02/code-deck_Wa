@@ -4,33 +4,43 @@ import styled from 'styled-components'
 import {  useNavigate } from 'react-router-dom'
 
 const NavbarContainer = styled.div`
-    background:#241f21;
+    background: var(--dark-bg);
     height: 4.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    border-bottom: 1px solid #333;
 `
+
 const NavbarContent = styled.button`
       background: transparent;
       border: 0;
-
       display: flex;
       align-items: center;
       gap: 1rem;
       cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+`
 
-`
 const Logo = styled.img`
-    width: 60px;
+    width: 45px;
 `
+
 const MainHeading = styled.div`
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 400;
-      color: white;
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
 
       span{
         font-weight: 700;
+        color: var(--primary-color);
       }
 `
 function Navbar() {

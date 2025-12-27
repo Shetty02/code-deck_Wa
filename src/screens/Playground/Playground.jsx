@@ -37,9 +37,17 @@ function Playground() {
   
 
   // logics for savecode and runcode
+  // logics for savecode and runcode
   const saveCode = ()=> {
     savePlayground(folderId, playgroundId, currentCode, currentLanguage)
   }
+
+  // Update code when language changes
+  React.useEffect(() => {
+    if (LanguageMap[currentLanguage]) {
+      setCurrentCode(LanguageMap[currentLanguage].defaultCode);
+    }
+  }, [currentLanguage]);
 
   const encode = (str)=>{
       return Buffer.from(str,'binary').toString('base64');
@@ -161,7 +169,7 @@ function Playground() {
   }
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       <MainContainer>
       <EditorContainer
       currentLanguage = {currentLanguage}
@@ -174,7 +182,7 @@ function Playground() {
       runCode = {runCode}
       getFile = {getFile}
       />
-      {/* <Console>
+      <Console>
         <InputConsole
         currentInput = {currentInput}
         setCurrentInput = {setCurrentInput}
@@ -183,7 +191,7 @@ function Playground() {
         <OutputConsole
         currentOutput = {currentOutput}
         />
-      </Console> */}
+      </Console>
       </MainContainer>
       {isOpenModal.show && <Modal/>}
       </div>

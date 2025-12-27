@@ -4,54 +4,77 @@ import logo from '../../assests/logo.png'
 import {ModalContext} from '../../context/ModalContext'
 
 const StyleLeftComponent = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 40%;
-    height: 100vh;
-    background-color: #241f21;
+    min-height: 100vh;
+    background-color: var(--dark-bg);
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    @media (max-width: 768px) {
+      width: 100%;
+      min-height: auto;
+      padding: 3rem 1rem;
+    }
 `
+
 const ContentContainer = styled.div`
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
+
 const Logo = styled.img`
     width: 165px;
-    margin-bottom:.75rem;
+    margin-bottom: 1rem;
 `
+
 const MainHeading = styled.h1`
     font-size: 2.5rem;
     font-weight: 400;
-    color: #fff;
-    margin-bottom:.75rem;
-    span{
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    
+    span {
         font-weight: 700;
+        color: var(--primary-color);
     }
 `
+
 const SubHeading = styled.p`
-font-size: 1.5rem;
-color: #fff;
-opacity: 0.7;
-margin-bottom:1.5rem;
+    font-size: 1.25rem;
+    color: var(--text-light);
+    opacity: 0.8;
+    margin-bottom: 2rem;
 `
+
 const AddPlayGround = styled.button`
-padding: .25rem 1.5rem;
-font-size: 1rem;
-border-radius: 30px;
-display: flex;
-align-items: center;
-gap:0.25rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
 
-span{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
+    span {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+    }
 
-&:hover{
-    cursor: pointer;
-}
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
 `
 
 function LeftComponent() {

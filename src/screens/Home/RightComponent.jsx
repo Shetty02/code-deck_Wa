@@ -7,80 +7,131 @@ import { ModalContext } from '../../context/ModalContext'
 import { PlaygroundContext } from '../../context/PlaygroundContext'
 import { useNavigate } from 'react-router-dom'
 const StyleRightComponent = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 60%;
-    height: 100vh;
-    background-color: #ffff;
-    padding: 2rem;
+    min-height: 100vh;
+    background-color: var(--white);
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 1.5rem;
+    }
 `
+
 const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding:.8rem;
+    padding: 0.75rem 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
 `
-const Heading = styled.h3`
-    font-size: ${props=>(props.size ==="small" ? "1.25rem" : "1.75rem")};
-    font-weight: 400;
 
-    span{
+const Heading = styled.h3`
+    font-size: ${props => (props.size === "small" ? "1.25rem" : "1.75rem")};
+    font-weight: 400;
+    color: var(--text-main);
+    margin: 0;
+    
+    span {
       font-weight: 700;
+      color: var(--text-main);
     }
 `
+
 const AddFolder = styled.div`
-font-size: 1.25rem;
-display: flex;
-align-items: center;
-gap: 0.25rem;
-color: black;
-span{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-&:hover{
-    cursor: pointer;
-}
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    span {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #eef2ff;
+        color: var(--primary-hover);
+    }
 `
+
 const FolderCard = styled.div`
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
 `
+
 const FolderIcon = styled.div`
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 1rem;
+    color: var(--text-light);
 
-    &:hover{
-      cursor: pointer;
+    & > * {
+         transition: color 0.2s;
+         &:hover {
+            color: var(--text-main);
+            cursor: pointer;
+         }
     }
 `
+
 const Logo = styled.img`
-    width: 70px;
-    margin-right:1rem;
+    width: 50px;
+    margin-right: 1rem;
 `
 
 const PlayGroundCards = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    /* grid-row-gap: 1rem; */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
 `
-const Card =styled.div`
+
+const Card = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 4px 0 #989898;
+    padding: 1.25rem;
+    border-radius: 12px;
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-color);
+        cursor: pointer;
+    }
 `
 
 const CardContent = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    
+    p:first-child {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--text-main);
+    }
+    
+    p:last-child {
+        font-size: 0.875rem;
+        color: var(--text-light);
+    }
 `
+
 const CardContainer = styled.div`
   display: flex;
-  align-items: center;;
+  align-items: center;
 `
 
 function RightComponent() {

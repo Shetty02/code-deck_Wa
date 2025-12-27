@@ -63,10 +63,12 @@ function  EditorContainer({
     // <StyledEditorContainer>
         <CodeEditor
         currentLanguage={currentLanguage}
-        // currentTheme = {currentTheme.value}
+        setCurrentLanguage={setCurrentLanguage}
         currentCode = {currentCode}
         setCurrentCode = {setCurrentCode}
         getFile = {getFile}
+        saveCode={saveCode}
+        runCode={runCode}
         />
         // </StyledEditorContainer>
   )
